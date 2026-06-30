@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="logo-row">
+            <div class="logo-icon">⚡</div>
+            <h1>Text Summarizer</h1>
+        </div>
+        <br>
+        <span class="badge">using HuggingFace Transformer</span>
+        <p class="desc">Drop in any text — get the key ideas back in seconds.</p>
+    </div>
+
+    <!-- Panels -->
+    <div class="panels">
+
+        <!-- LEFT -->
+        <div class="panel">
+            <div class="panel-label"><span class="dot"></span> Input Text</div>
+            <form id="summarization-form">
+                <textarea id="dialogue-input" placeholder="Enter your content here..." required oninput="updateCount()"></textarea>
+
+                <!-- char progress bar -->
+                <div class="char-bar-wrap">
+                    <div class="char-bar-track">
+                        <div class="char-bar-fill" id="char-bar-fill"></div>
+                    </div>
+                    <span class="char-count-label" id="char-count-label">0 chars</span>
+                </div>
+
+                <!-- quick-action toolbar -->
+                <div class="toolbar">
+                    <button type="button" class="tool-btn" onclick="clearInput()" title="Clear text">🗑 Clear</button>
+                    <button type="button" class="tool-btn" onclick="pasteInput()" title="Paste from clipboard">📋 Paste</button>
+                    <button type="button" class="tool-btn" onclick="loadSample()" title="Load sample text">✨ Sample</button>
+                </div>
+
+                <button type="submit">
+                    <div class="spinner" id="btn-spinner"></div>
+                    <span id="btn-label">✦ Summarize</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="panel">
+            <div id="summary-output">
+                <div class="output-top">
+                    <h3 id="summary-heading"><span class="dot"></span> Content Summary</h3>
+                    <div class="out-actions">
+                        <button class="copy-btn" onclick="copyText()">⎘ Copy</button>
+                        <button class="dl-btn"   onclick="downloadText()">↓ Save</button>
+                    </div>
+                </div>
+
+                <div class="summary-box">
+                    <div class="placeholder-msg" id="placeholder">
+                        <span class="icon">📋</span>
+                        Your summary will appear here after you click <strong>Summarize</strong>.
+                    </div>
+                    <p id="summary-text"></p>
+                </div>
+
+                <!-- word / sentence stats strip -->
+                <div class="word-strip" id="word-strip">
+                    <div class="ws-item">
+                        <span class="ws-dot" style="background:#fb923c"></span>
+                        Original: <strong id="ws-orig">—</strong>
+                    </div>
+                    <div class="ws-item">
+                        <span class="ws-dot" style="background:#16a34a"></span>
+                        Summary: <strong id="ws-sum">—</strong>
+                    </div>
+                    <div class="ws-item">
+                        <span class="ws-dot" style="background:#7c3aed"></span>
+                        Reduced: <strong id="ws-ratio">—</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
